@@ -1,24 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+
+import "./App.css";
+
+import { Route, Router, Navigate } from "react-router-dom";
+
+import GetUsers from "./Page/GetUsers";
+import NewUser from "./Page/NewUser";
+import UserProfile from "./Page/UserProfile";
+import EditUserPage from "./Page/EditUserPage";
+import HomePage from "./HomePage";
+import Data from "./config/DataFetch";
+
+import UserContext from "./context/UserContext";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <UserContext>
+        <Router>
+          <Route path="/dashboard/all-users">
+            <GetUsers />
+          </Route>
+          <Route path="/dashboard/create-user">
+            <NewUser />
+          </Route>
+          <Route path="/dashboard/view-profile/:id">
+            <UserProfile />
+          </Route>
+          <Route path="/dashboard/editProfile/:id">
+            <EditUserPage />
+          </Route>
+          <Route path="/dashboard">
+            <HomePage />
+          </Route>
+          <Route path="/data">
+            <Data />
+          </Route>
+          <Route path="/">
+            <Navigate to="/dashboard"></Navigate>
+          </Route>
+        </Router>
+      </UserContext>
+    </>
   );
 }
 
